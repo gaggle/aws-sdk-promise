@@ -13,4 +13,11 @@ describe('library', function () {
     ec2.describeAccountAttributes().promise()
       .must.have.property('then');
   })
+
+  it('should allow custom Promise library', function () {
+    var Q = require('q');
+    aws.Promise = Q.Promise;
+    Q.isPromise(ec2.describeAccountAttributes().promise())
+      .must.be.true();
+  })
 })
